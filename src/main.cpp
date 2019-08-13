@@ -1,3 +1,5 @@
+#include "../include/instruction_loader.hpp"
+
 #include <iostream>
 #include <boost/program_options.hpp>
 #include <boost/property_tree/ptree.hpp>
@@ -38,13 +40,12 @@ bool parse_command_line_args(int argc, const char *argv[], std::string & test_fi
 int main(int argc, char const *argv[])
 {
     uint reg_num = 16;
-    std::string test_file;
-    
-    if (!parse_command_line_args(argc, argv, test_file, reg_num))
+    std::string file_path;
+
+    if (!parse_command_line_args(argc, argv, file_path, reg_num))
         std::exit(1);
 
-
-    
+    grega::instruction_loader loader(file_path);
 
     return 0;
 }
