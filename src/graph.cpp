@@ -17,7 +17,7 @@ Graph::Graph()
 {
 	m_edges = std::vector<std::pair<char, char>>(0);
 }
-//~Graph(){}
+
 void Graph::add_edge(char A, char B)
 {
 	A = toupper(A);
@@ -25,6 +25,7 @@ void Graph::add_edge(char A, char B)
 
 	if((contains_node(A)) && (contains_node(B)))
 	{
+
 		if(!this->contains_edge(A, B))
 		{
 			auto ab = std::make_pair(A, B);
@@ -51,6 +52,7 @@ void Graph::remove_edge(char A, char B)
 	B = toupper(B);
 
 	auto ab = std::make_pair(A, B);
+
 	std::vector<std::pair<char, char>>::iterator it = std::find(m_edges.begin(), m_edges.end(), ab);
 	if(it != m_edges.end())
 	{
@@ -75,6 +77,7 @@ void Graph::remove_node(char A)
 {
 	A = toupper(A);
 	
+
 	if(this->contains_node(A))
 	{
 		m_nodes.erase(std::find(m_nodes.begin(), m_nodes.end(), A));
@@ -91,6 +94,7 @@ bool Graph::contains_edge(char A, char B)
 	B = toupper(B);
 	auto ab = std::make_pair(A, B);
 	auto ba = std::make_pair(B, A);
+
 	for(auto pair : m_edges)
 	{
 		if(edge_equal(pair, ab) || (edge_equal(pair, ba))) 
