@@ -7,6 +7,10 @@ class Graph{
 public:
 	Graph(int num_of_nodes, int num_of_egdes);
 	Graph();
+<<<<<<< HEAD
+=======
+	~Graph();
+>>>>>>> c24fe00eabf46f2a77fed8a3563fd1cf2e950b1d
 	void add_edge(char A, char B);
 	void add_node(char A);
 	void remove_edge(char A, char B);

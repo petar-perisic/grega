@@ -8,6 +8,7 @@
 #include <cctype>
 
 Graph::Graph(int num_of_nodes, int num_of_egdes)
+<<<<<<< HEAD
 : m_nodes(num_of_nodes)
 {
 	m_edges = std::vector<std::pair<char, char>>(num_of_egdes);
@@ -17,6 +18,15 @@ Graph::Graph()
 {
 	m_edges = std::vector<std::pair<char, char>>(0);
 }
+=======
+: m_egdes(num_of_egdes), m_nodes(num_of_nodes)
+{
+	
+}
+Graph::Graph()
+:m_egdes(0), m_nodes(0)
+{}
+>>>>>>> c24fe00eabf46f2a77fed8a3563fd1cf2e950b1d
 //~Graph(){}
 void Graph::add_edge(char A, char B)
 {
@@ -25,10 +35,17 @@ void Graph::add_edge(char A, char B)
 
 	if((contains_node(A)) && (contains_node(B)))
 	{
+<<<<<<< HEAD
 		if(!this->contains_edge(A, B))
 		{
 			auto ab = std::make_pair(A, B);
 			m_edges.push_back(ab);
+=======
+		if(!m_egdes.contains_edge(A, B))
+		{
+			auto ab = std::make_pair(A, B);
+			m_egdes.push_back(ab);
+>>>>>>> c24fe00eabf46f2a77fed8a3563fd1cf2e950b1d
 		}
 	} 
 	else
@@ -51,14 +68,22 @@ void Graph::remove_edge(char A, char B)
 	B = toupper(B);
 
 	auto ab = std::make_pair(A, B);
+<<<<<<< HEAD
 	std::vector<std::pair<char, char>>::iterator it = std::find(m_edges.begin(), m_edges.end(), ab);
 	if(it != m_edges.end())
 	{
 		m_edges.erase(it);
+=======
+	std::vector<std::pair<char, char>>::iterator it = std::find(m_egdes.begin(), m_egdes.end(), ab);
+	if(it != m_egdes.end())
+	{
+		m_egdes.erase(it);
+>>>>>>> c24fe00eabf46f2a77fed8a3563fd1cf2e950b1d
 	}
 	else
 	{
 		auto ba = std::make_pair(A, B);
+<<<<<<< HEAD
 		std::vector<std::pair<char, char>>::iterator it2 = std::find(m_edges.begin(), m_edges.end(), ba);
 		if(it != m_edges.end())
 		{
@@ -67,6 +92,16 @@ void Graph::remove_edge(char A, char B)
 		else
 		{
 			std::cout << "Can't remove edge that isn't already in the `m_edges` vector!" << std::endl;
+=======
+		std::vector<std::pair<char, char>>::iterator it2 = std::find(m_egdes.begin(), m_egdes.end(), ba);
+		if(it != m_egdes.end())
+		{
+			m_egdes.erase(it2);
+		}
+		else
+		{
+			std::cout << "Can't remove edge that isn't already in the `m_egdes` vector!" << std::endl;
+>>>>>>> c24fe00eabf46f2a77fed8a3563fd1cf2e950b1d
 		}
 	}
 }
@@ -75,7 +110,11 @@ void Graph::remove_node(char A)
 {
 	A = toupper(A);
 	
+<<<<<<< HEAD
 	if(this->contains_node(A))
+=======
+	if(Grega::contains_node(A))
+>>>>>>> c24fe00eabf46f2a77fed8a3563fd1cf2e950b1d
 	{
 		m_nodes.erase(std::find(m_nodes.begin(), m_nodes.end(), A));
 	}
@@ -91,7 +130,11 @@ bool Graph::contains_edge(char A, char B)
 	B = toupper(B);
 	auto ab = std::make_pair(A, B);
 	auto ba = std::make_pair(B, A);
+<<<<<<< HEAD
 	for(auto pair : m_edges)
+=======
+	for(auto pair : m_egdes)
+>>>>>>> c24fe00eabf46f2a77fed8a3563fd1cf2e950b1d
 	{
 		if(edge_equal(pair, ab) || (edge_equal(pair, ba))) 
 		{
@@ -105,7 +148,11 @@ bool Graph::contains_node(char A)
 {
 	A = toupper(A);
 
+<<<<<<< HEAD
 	auto it = std::find(m_nodes.begin(), m_nodes.end(), A);
+=======
+	std::vector<std::pair<char, char>>::iterator it = std::find(m_nodes.begin(), m_nodes.end(), A);
+>>>>>>> c24fe00eabf46f2a77fed8a3563fd1cf2e950b1d
 	if(it != m_nodes.end())
 	{
 		return true;
@@ -137,7 +184,11 @@ void Graph::print_graph()
 	std::cout << std::endl << "Edges:" << std::endl; 
 
 	int i = 0;
+<<<<<<< HEAD
 	for(auto e : m_edges)
+=======
+	for(auto e : m_egdes)
+>>>>>>> c24fe00eabf46f2a77fed8a3563fd1cf2e950b1d
 	{
 		std::cout << e.first << "-" << e.second << "  ";
 		i++;
