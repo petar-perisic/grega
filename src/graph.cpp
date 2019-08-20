@@ -34,8 +34,10 @@ void Graph::add_edge(char A, char B)
 	} 
 	else
 	{
+		#ifdef DEBUG
 		std::cout << "Pokusano dodavanje grane u vektor grana a da cvorovi nisu vec u vektoru cvorova!" << std::endl;
 		std::cout << "Moguce resenje: Dodaj automatsko dodavanje cvorova, ako zelis da dodajes granu automatski!" << std::endl;
+		#endif //DEBUG
 	}
 }
 void Graph::add_node(char A)
