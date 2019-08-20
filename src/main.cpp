@@ -1,8 +1,10 @@
 #include "../include/instruction_loader.hpp"
-
+#include "../include/graph.hpp"
 #include <iostream>
 #include <boost/program_options.hpp>
 #include <boost/property_tree/ptree.hpp>
+
+void test_graph();
 
 bool parse_command_line_args(int argc, const char *argv[], std::string & test_file, uint & reg_num) 
 {
@@ -39,13 +41,26 @@ bool parse_command_line_args(int argc, const char *argv[], std::string & test_fi
 
 int main(int argc, char const *argv[])
 {
+    /*
     uint reg_num = 16;
     std::string file_path;
 
-    if (!parse_command_line_args(argc, argv, file_path, reg_num))
+    if (!parse_command_line_args(argc, argv, file_path, reg_num)) 
+    {
         std::exit(1);
+    }
 
     grega::instruction_loader loader(file_path);
 
+    */
+    test_graph();
     return 0;
+}
+
+void test_graph(){
+    Graph g;
+    g.add_node('A');
+    g.add_node('B');
+    g.add_edge('A', 'B');
+    g.print_graph();
 }
