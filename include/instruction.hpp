@@ -3,27 +3,50 @@
 
 #include <string>
 #include <vector>
-
-namespace grega {
+#include <iterator>
 
 class instruction {
 public:
-    instruction(std::string & name, std::string & body);
+    instruction(std::string && var_name);
 
     std::string to_string() const;
 
-private:
-    std::string m_name;
+    void size(int n);
+    int size() const;
     
-    std::string m_body;
+    void operand1(std::string && op);
+    void operand2(std::string && op);
+    
+    std::string var() const;
+    std::string operand1() const;
+    std::string operand2() const;
 
+    void instruction_operator(std::string && op);
+    std::string instruction_operator() const;
+
+    void use(std::vector<std::string> && vars);
+    std::vector<std::string>& use();
+
+    void is_moved(bool option);
+    bool is_moved() const;
+
+    void use_list_add_if_unique(std::string operand);
+    
+    void print_use_list() const;
+
+private:
+    std::string m_var;
+    
     std::string m_operand1;
     std::string m_operand2;
-    char m_operator;
+    
+    std::string m_operator;
 
-    void parse_body();
+    int m_size;
+
+    std::vector<std::string> m_use;
+    
+    bool m_is_moved = false;
 };
-
-} // namespace grega
 
 #endif // INSTRUCTION_HPP_
