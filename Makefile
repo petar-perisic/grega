@@ -3,17 +3,20 @@ BOOST    = boost_program_options
 CXXFLAGS = -std=c++17 -Wall
 CC = clang++
 
-$(PROGRAM): src/main.cpp instruction.o instruction_manager.o graph.o 
-	$(CC) -o $@ $^ -l $(BOOST)
+$(PROGRAM): src/main.cpp instruction.o instruction_manager.o graph.o helper.o
+	$(CC) $(CXXFLAGS) -o $@ $^ -l $(BOOST)
 
-instruction.o: src/instruction.cpp include/instruction.hpp
-	$(CC) -c -o $@ $<
+instruction.o: src/instruction.cpp include/instruction.hpp include/helper.hpp
+	$(CC) $(CXXFLAGS) -c -o $@ $<
 
-instruction_manager.o: src/instruction_manager.cpp include/instruction_manager.hpp
-	$(CC) -c -o $@ $<
+instruction_manager.o: src/instruction_manager.cpp include/instruction_manager.hpp include/helper.hpp
+	$(CC) $(CXXFLAGS) -c -o $@ $<
 
-graph.o: src/graph.cpp include/graph.hpp
-	$(CC) -c -o $@ $<
+graph.o: src/graph.cpp include/graph.hpp include/helper.hpp
+	$(CC) $(CXXFLAGS) -c -o $@ $<
+
+helper.o: src/helper.cpp  include/helper.hpp
+	$(CC) $(CXXFLAGS) -c -o $@ $<
 
 .PHONY: clean
 
