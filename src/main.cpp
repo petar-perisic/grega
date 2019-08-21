@@ -1,4 +1,4 @@
-#include "../include/instruction_loader.hpp"
+#include "../include/instruction.hpp"
 #include "../include/graph.hpp"
 #include "../include/instruction_manager.hpp"
 
@@ -65,5 +65,14 @@ void test_graph(){
     g.add_node('A');
     g.add_node('B');
     g.add_edge('A', 'B');
+    g.add_node('c');
+    g.add_node('d');
+    g.add_node('e');
+    g.add_edge('e', 'a');
+    g.add_edge('a', 'd');
+    g.add_edge('d', 'a');
+    g.add_edge('f', 'g');
+    g.add_edge('C', 'A');
+
     g.print_graph();
 }
