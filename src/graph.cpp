@@ -8,25 +8,25 @@
 #include <string>
 #include <cctype>
 
-Graph::Graph()
+graph::graph()
 	: m_nodes(0)
 {
-	m_edges = std::vector<std::pair<std::string, std::string>>(0);
+	m_edges = std::vector<std::pair<node, node>>(0);
 }
 
-Graph::Graph(int num_of_nodes, int num_of_egdes)
+graph::graph(int num_of_nodes, int num_of_egdes)
 	: m_nodes(num_of_nodes)
 {
-	m_edges = std::vector<std::pair<std::string, std::string>>(num_of_egdes);
+	m_edges = std::vector<std::pair<node, node>>(num_of_egdes);
 }
 
-void Graph::add_edge(std::string A, std::string B)
+void graph::add_edge(node a, node b)
 {
-	if((contains_node(A)) && (contains_node(B)))
+	if((contains_node(a.name())) && (contains_node(b.name())))
 	{
-		if(!this->contains_edge(A, B))
+		if(!this->contains_edge(a.name(), b.name()))
 		{
-			auto ab = std::make_pair(A, B);
+			auto ab = std::make_pair(a, b);
 			m_edges.push_back(ab);
 		}
 	} 
@@ -39,17 +39,17 @@ void Graph::add_edge(std::string A, std::string B)
 	}
 }
 
-void Graph::add_node(std::string A)
+void graph::add_node(node a)
 {
-	if(!contains_node(A))
+	if(!contains_node(a.name()))
 	{
-		m_nodes.push_back(A);
+		m_nodes.push_back(a);
 	} // else - it already exists 
 }
 
-void Graph::remove_edge(std::string A, std::string B)
+void graph::remove_edge(node a, node b)
 {
-	auto ab = std::make_pair(A, B);
+	auto ab = std::make_pair(a, b);
 
 	auto it = std::find(m_edges.begin(), m_edges.end(), ab);
 	if(it != m_edges.end())
@@ -58,7 +58,7 @@ void Graph::remove_edge(std::string A, std::string B)
 	}
 	else
 	{
-		auto ba = std::make_pair(B, A);
+		auto ba = std::make_pair(b, a);
 		auto it2 = std::find(m_edges.begin(), m_edges.end(), ba);
 		if(it != m_edges.end())
 		{
@@ -71,11 +71,11 @@ void Graph::remove_edge(std::string A, std::string B)
 	}
 }
 
-void Graph::remove_node(std::string A)
+void graph::remove_node(node a)
 {
-	if(this->contains_node(A))
+	if(this->contains_node(a.name()))
 	{
-		m_nodes.erase(std::find(m_nodes.begin(), m_nodes.end(), A));
+		m_nodes.erase(std::find(m_nodes.begin(), m_nodes.end(), a));
 	}
 	else
 	{
@@ -83,10 +83,10 @@ void Graph::remove_node(std::string A)
 	}
 }
 
-bool Graph::contains_edge(std::string A, std::string B)
+bool graph::contains_edge(node a, node b)
 {
-	auto ab = std::make_pair(A, B);
-	auto ba = std::make_pair(B, A);
+	auto ab = std::make_pair(a, b);
+	auto ba = std::make_pair(b, a);
 
 	for(auto pair : m_edges)
 	{
@@ -98,9 +98,9 @@ bool Graph::contains_edge(std::string A, std::string B)
 	return false;
 }
 
-bool Graph::contains_node(std::string A)
+bool graph::contains_node(node a)
 {
-	auto it = std::find(m_nodes.begin(), m_nodes.end(), A);
+	auto it = std::find(m_nodes.begin(), m_nodes.end(), a);
 	if(it != m_nodes.end())
 	{
 		return true;
@@ -109,24 +109,24 @@ bool Graph::contains_node(std::string A)
 	return false;
 }
 
-bool Graph::edge_equal(std::pair<std::string, std::string> a, std::pair<std::string, std::string> b)
+bool graph::edge_equal(std::pair<node, node> a, std::pair<node, node> b)
 {
-	if((a.first == b.first && a.second == b.second) 
-		|| (a.first == b.second && a.second == b.first))
+	if((a.first.name() == b.first.name() && a.second.name() == b.second.name()) ||
+	   (a.first.name() == b.second.name() && a.second.name() == b.first.name()))
 	{
 		return true;
 	}
 	return false;
 }
 
-void Graph::print_graph()
+void graph::print_graph()
 {
 	std::cout << "You wanted graph presentation, so here you go:" << std::endl;
 	std::cout << "Nodes:" << std::endl; 
 
 	for(auto n : m_nodes)
 	{
-		std::cout << n << " ";
+		std::cout << n.name() << " ";
 	}
 	std::cout << std::endl;
 	
@@ -135,7 +135,7 @@ void Graph::print_graph()
 	int i = 0;
 	for(auto e : m_edges)
 	{
-		std::cout << e.first << "-" << e.second << "  ";
+		std::cout << e.first.name() << "-" << e.second.name() << "  ";
 		i++;
 		if(i % 5 == 0) 
 		{
@@ -147,3 +147,12 @@ void Graph::print_graph()
 
 }
 
+std::vector<std::pair<node, node>> graph::adjacency_list() const
+{
+	return m_edges;
+}
+
+std::vector<node> graph::nodes() const
+{
+	return m_nodes;
+}

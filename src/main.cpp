@@ -44,7 +44,7 @@ bool parse_command_line_args(int argc, const char *argv[], std::string & test_fi
 
 int main(int argc, char const *argv[])
 {
-    uint reg_num = 16;
+    uint reg_num = 4;
     std::string file_path;
 
     if (!parse_command_line_args(argc, argv, file_path, reg_num)) 
@@ -57,7 +57,7 @@ int main(int argc, char const *argv[])
     manager.load_instructions();
     manager.liveness_analysis();
 
-    Graph g = grega::build(manager.instructions());
+    graph g = grega::build(manager.instructions());
     
     g.print_graph();
 

@@ -9,7 +9,7 @@
 
 class grega {
 public:
-    Graph static build(std::vector<instruction> & instruction_set);
+    graph static build(std::vector<instruction> & instruction_set);
 };
 
 #endif // GREGA_HPP_
