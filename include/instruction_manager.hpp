@@ -11,7 +11,7 @@ class instruction_manager {
 public:
     instruction_manager(std::string & file_path);
 
-    std::vector<instruction> & instructions() const;
+    std::vector<instruction> & instructions();
 
     void load_instructions();
 

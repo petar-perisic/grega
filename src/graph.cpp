@@ -1,31 +1,29 @@
 #include "../include/graph.hpp"
-#include <vector>
-#include <iostream>
+
 #include <algorithm>
+#include <iostream>
 #include <iterator>
-#include <string>
 #include <utility>
+#include <vector>
+#include <string>
 #include <cctype>
 
-Graph::Graph(int num_of_nodes, int num_of_egdes)
-: m_nodes(num_of_nodes)
-{
-	m_edges = std::vector<std::pair<char, char>>(num_of_egdes);
-}
 Graph::Graph()
-: m_nodes(0)
+	: m_nodes(0)
 {
-	m_edges = std::vector<std::pair<char, char>>(0);
+	m_edges = std::vector<std::pair<std::string, std::string>>(0);
 }
 
-void Graph::add_edge(char A, char B)
+Graph::Graph(int num_of_nodes, int num_of_egdes)
+	: m_nodes(num_of_nodes)
 {
-	A = toupper(A);
-	B = toupper(B);
+	m_edges = std::vector<std::pair<std::string, std::string>>(num_of_egdes);
+}
 
+void Graph::add_edge(std::string A, std::string B)
+{
 	if((contains_node(A)) && (contains_node(B)))
 	{
-
 		if(!this->contains_edge(A, B))
 		{
 			auto ab = std::make_pair(A, B);
@@ -40,30 +38,28 @@ void Graph::add_edge(char A, char B)
 		#endif //DEBUG
 	}
 }
-void Graph::add_node(char A)
+
+void Graph::add_node(std::string A)
 {
-	A = toupper(A);
 	if(!contains_node(A))
 	{
 		m_nodes.push_back(A);
 	} // else - it already exists 
 }
-void Graph::remove_edge(char A, char B)
-{
-	A = toupper(A);
-	B = toupper(B);
 
+void Graph::remove_edge(std::string A, std::string B)
+{
 	auto ab = std::make_pair(A, B);
 
-	std::vector<std::pair<char, char>>::iterator it = std::find(m_edges.begin(), m_edges.end(), ab);
+	auto it = std::find(m_edges.begin(), m_edges.end(), ab);
 	if(it != m_edges.end())
 	{
 		m_edges.erase(it);
 	}
 	else
 	{
-		auto ba = std::make_pair(A, B);
-		std::vector<std::pair<char, char>>::iterator it2 = std::find(m_edges.begin(), m_edges.end(), ba);
+		auto ba = std::make_pair(B, A);
+		auto it2 = std::find(m_edges.begin(), m_edges.end(), ba);
 		if(it != m_edges.end())
 		{
 			m_edges.erase(it2);
@@ -75,11 +71,8 @@ void Graph::remove_edge(char A, char B)
 	}
 }
 
-void Graph::remove_node(char A)
+void Graph::remove_node(std::string A)
 {
-	A = toupper(A);
-	
-
 	if(this->contains_node(A))
 	{
 		m_nodes.erase(std::find(m_nodes.begin(), m_nodes.end(), A));
@@ -90,10 +83,8 @@ void Graph::remove_node(char A)
 	}
 }
 
-bool Graph::contains_edge(char A, char B)
+bool Graph::contains_edge(std::string A, std::string B)
 {
-	A = toupper(A);
-	B = toupper(B);
 	auto ab = std::make_pair(A, B);
 	auto ba = std::make_pair(B, A);
 
@@ -107,10 +98,8 @@ bool Graph::contains_edge(char A, char B)
 	return false;
 }
 
-bool Graph::contains_node(char A)
+bool Graph::contains_node(std::string A)
 {
-	A = toupper(A);
-
 	auto it = std::find(m_nodes.begin(), m_nodes.end(), A);
 	if(it != m_nodes.end())
 	{
@@ -120,7 +109,7 @@ bool Graph::contains_node(char A)
 	return false;
 }
 
-bool Graph::edge_equal(std::pair<char, char> a, std::pair<char, char> b)
+bool Graph::edge_equal(std::pair<std::string, std::string> a, std::pair<std::string, std::string> b)
 {
 	if((a.first == b.first && a.second == b.second) 
 		|| (a.first == b.second && a.second == b.first))
@@ -128,7 +117,8 @@ bool Graph::edge_equal(std::pair<char, char> a, std::pair<char, char> b)
 		return true;
 	}
 	return false;
-}	
+}
+
 void Graph::print_graph()
 {
 	std::cout << "You wanted graph presentation, so here you go:" << std::endl;

@@ -1,9 +1,10 @@
+CC 	     = clang++
 PROGRAM  = grega
 BOOST    = boost_program_options
 CXXFLAGS = -std=c++17 -Wall
-CC = clang++
+OBJECTS  = instruction.o instruction_manager.o graph.o helper.o grega.o
 
-$(PROGRAM): src/main.cpp instruction.o instruction_manager.o graph.o helper.o
+$(PROGRAM): src/main.cpp $(OBJECTS)
 	$(CC) $(CXXFLAGS) -o $@ $^ -l $(BOOST)
 
 instruction.o: src/instruction.cpp include/instruction.hpp include/helper.hpp
@@ -17,6 +18,10 @@ graph.o: src/graph.cpp include/graph.hpp include/helper.hpp
 
 helper.o: src/helper.cpp  include/helper.hpp
 	$(CC) $(CXXFLAGS) -c -o $@ $<
+
+grega.o: src/grega.cpp  include/grega.hpp include/graph.hpp include/instruction.hpp
+	$(CC) $(CXXFLAGS) -c -o $@ $<
+
 
 .PHONY: clean
 

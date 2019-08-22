@@ -1,8 +1,10 @@
+#include "../include/instruction_manager.hpp"
 #include "../include/instruction.hpp"
 #include "../include/graph.hpp"
-#include "../include/instruction_manager.hpp"
+#include "../include/grega.hpp"
 
 #include <iostream>
+
 #include <boost/program_options.hpp>
 #include <boost/property_tree/ptree.hpp>
 
@@ -33,7 +35,7 @@ bool parse_command_line_args(int argc, const char *argv[], std::string & test_fi
         }
     }
     catch (const std::exception & ex) {
-        std::cerr << "[Error]: " << ex.what() << '\n';
+        std::cerr << "[Error]: " << ex.what() << "\n";
         return false;
     }
 
@@ -42,7 +44,6 @@ bool parse_command_line_args(int argc, const char *argv[], std::string & test_fi
 
 int main(int argc, char const *argv[])
 {
-    /*
     uint reg_num = 16;
     std::string file_path;
 
@@ -52,27 +53,13 @@ int main(int argc, char const *argv[])
     }
 
     instruction_manager manager(file_path);
+
     manager.load_instructions();
     manager.liveness_analysis();
 
-    */
-    test_graph();
-    return 0;
-}
-
-void test_graph(){
-    Graph g;
-    g.add_node('A');
-    g.add_node('B');
-    g.add_edge('A', 'B');
-    g.add_node('c');
-    g.add_node('d');
-    g.add_node('e');
-    g.add_edge('e', 'a');
-    g.add_edge('a', 'd');
-    g.add_edge('d', 'a');
-    g.add_edge('f', 'g');
-    g.add_edge('C', 'A');
-
+    Graph g = grega::build(manager.instructions());
+    
     g.print_graph();
+
+    return 0;
 }

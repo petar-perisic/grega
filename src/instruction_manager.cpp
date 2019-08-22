@@ -15,6 +15,11 @@ instruction_manager::instruction_manager(std::string & file_path)
         helper::fatal_error("Opening test file failed");
 }
 
+std::vector<instruction> & instruction_manager::instructions()
+{
+    return m_instructions;
+}
+
 void instruction_manager::load_instructions()
 {
     std::string instruction_string;
@@ -64,8 +69,11 @@ void instruction_manager::liveness_analysis()
                  i->use_list_add_if_unique(i->operand1());
             }
 
+            #ifdef DEBUG 
+            std::cout << "Liveness analysis:" << std::endl;
             std::cout << size-- << ". " << i->to_string() << std::endl;
             i->print_use_list();
+            #endif // DEBUG
         }
     }
 }
