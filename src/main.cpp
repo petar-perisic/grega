@@ -55,10 +55,15 @@ int main(int argc, char const *argv[])
 
     manager.load_instructions();
 
-    manager.liveness_analysis();
-    graph g = grega::build(manager.instructions());
-    grega::simplify_spill(g);
-    grega::select(g);
+    graph g;
+    do {
+        manager.liveness_analysis();
+        g = grega::build(manager.instructions());
+        grega::simplify_spill(g);
+        grega::select(g);
+    } while (!grega::spill_nodes.empty());
 
+    grega::print(g);
+    
     return 0;
 }

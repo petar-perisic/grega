@@ -10,13 +10,16 @@
 // initialize static members
 std::vector<node> grega::spill_nodes;
 int grega::reg_num = 4;
+std::vector<instruction> grega::instruction_set;
 
 graph grega::build(std::vector<instruction> & instruction_set)
 {
     spill_nodes.resize(0);
 
+    grega::instruction_set = instruction_set;
+
     graph G;
-    for (auto & i : instruction_set) {
+    for (auto & i : grega::instruction_set) {
         G.add_node(node(i.var()));
         auto u = G.find_node(i.var());
         
@@ -108,11 +111,16 @@ void grega::select(graph & G)
 
         // color
         if (!grega::color(G.find_node(u.name()), G))
-            start_over();
+            start_over(u);
     }
 }
 
-void grega::start_over()
+void grega::start_over(node u)
+{
+
+}
+
+void grega::print(const graph & G)
 {
 
 }
