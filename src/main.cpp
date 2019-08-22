@@ -58,7 +58,7 @@ int main(int argc, char const *argv[])
     manager.liveness_analysis();
     graph g = grega::build(manager.instructions());
     grega::simplify_spill(g);
-    
+    grega::select(g);
 
     return 0;
 }

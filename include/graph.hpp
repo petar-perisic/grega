@@ -28,10 +28,13 @@ public:
 	std::vector<node> nodes() const;
 
 	node& find_node(std::string node_name);
+	
+	void update_adjacent_nodes_list();
 
 private:
 	std::vector<std::pair<node, node>> m_edges;
 	std::vector<node> m_nodes;
+
 };
 
 #endif // GRAPH_HPP_

@@ -20,12 +20,12 @@ std::string node::name() const
     return m_name;
 }
 
-void node::color(std::string col)
+void node::color(int col)
 {
     m_color = col;
 }
 
-std::string node::color() const
+int node::color() const
 {
     return m_color;
 }

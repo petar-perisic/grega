@@ -12,8 +12,8 @@ public:
     void name(std::string node_name);
     std::string name() const;
 
-    void color(std::string col);
-    std::string color() const;
+    void color(int col);
+    int color() const;
 
     int degree(std::vector<std::pair<node, node>> adjacency_list);
     int degree() const;
@@ -27,7 +27,7 @@ public:
 
 private:
     std::string m_name;
-    std::string m_color;
+    int m_color = 0;
     int m_degree = 0;
     bool m_is_spilled = false;
 

@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <optional>
 #include <iterator>
 #include <utility>
 #include <vector>
@@ -33,8 +34,7 @@ void graph::add_edge(node a, node b)
 	else
 	{
 		#ifdef DEBUG
-		std::cout << "Pokusano dodavanje grane u vektor grana a da cvorovi nisu vec u vektoru cvorova!" << std::endl;
-		std::cout << "Moguce resenje: Dodaj automatsko dodavanje cvorova, ako zelis da dodajes granu automatski!" << std::endl;
+		std::cout << "Adding non edge between non existing nodes!" << std::endl;
 		#endif //DEBUG
 	}
 }
@@ -125,7 +125,6 @@ bool graph::edge_equal(std::pair<node, node> a, std::pair<node, node> b)
 
 void graph::print_graph()
 {
-	std::cout << "You wanted graph presentation, so here you go:" << std::endl;
 	std::cout << "Nodes:" << std::endl; 
 
 	for(auto n : m_nodes)
@@ -166,6 +165,26 @@ node& graph::find_node(std::string node_name)
 			return n;
 	}
 	
-	node not_found;
+	node not_found{};
 	return not_found;
+}
+
+void graph::update_adjacent_nodes_list()
+{
+	for (auto & u : m_nodes) {
+		for (auto & v : m_edges) {
+			if (contains_edge(u, v.first)) {
+				auto it = std::find(u.adjacent_nodes().begin(), u.adjacent_nodes().end(), v.first);
+				if (it == u.adjacent_nodes().end())
+					u.adjacent_nodes().push_back(v.first);
+			}
+			else if (contains_edge(u, v.second)) {
+				auto it = std::find(u.adjacent_nodes().begin(), u.adjacent_nodes().end(), v.second);
+				if (it == u.adjacent_nodes().end())
+					u.adjacent_nodes().push_back(v.second);
+			}
+		}
+		
+	}
+	
 }
