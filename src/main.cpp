@@ -10,14 +10,14 @@
 
 void test_graph();
 
-bool parse_command_line_args(int argc, const char *argv[], std::string & test_file, uint & reg_num) 
+bool parse_command_line_args(int argc, const char *argv[], std::string & test_file, int & reg_num) 
 {
     try {
         boost::program_options::options_description desc{"Options"};
         desc.add_options()
             ("help,h", "Show help")
             ("file,f", boost::program_options::value<std::string>(), "Path to test file")
-            ("registers,r", boost::program_options::value<uint>(),"Number of available registers");
+            ("registers,r", boost::program_options::value<int>(),"Number of available registers");
 
         boost::program_options::variables_map vm;
         boost::program_options::store(boost::program_options::parse_command_line(argc, argv, desc), vm);
@@ -31,7 +31,7 @@ bool parse_command_line_args(int argc, const char *argv[], std::string & test_fi
             test_file = vm["file"].as<std::string>();
         }
         if (vm.count("registers")) {
-            reg_num = vm["registers"].as<uint>();
+            reg_num = vm["registers"].as<int>();
         }
     }
     catch (const std::exception & ex) {
@@ -44,10 +44,9 @@ bool parse_command_line_args(int argc, const char *argv[], std::string & test_fi
 
 int main(int argc, char const *argv[])
 {
-    uint reg_num = 4;
     std::string file_path;
 
-    if (!parse_command_line_args(argc, argv, file_path, reg_num)) 
+    if (!parse_command_line_args(argc, argv, file_path, grega::reg_num)) 
     {
         std::exit(1);
     }
@@ -55,11 +54,11 @@ int main(int argc, char const *argv[])
     instruction_manager manager(file_path);
 
     manager.load_instructions();
-    manager.liveness_analysis();
 
+    manager.liveness_analysis();
     graph g = grega::build(manager.instructions());
+    grega::simplify_spill(g);
     
-    g.print_graph();
 
     return 0;
 }

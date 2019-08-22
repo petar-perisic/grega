@@ -27,6 +27,8 @@ public:
 	std::vector<std::pair<node, node>> adjacency_list() const;
 	std::vector<node> nodes() const;
 
+	node& find_node(std::string node_name);
+
 private:
 	std::vector<std::pair<node, node>> m_edges;
 	std::vector<node> m_nodes;

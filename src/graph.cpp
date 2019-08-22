@@ -60,26 +60,30 @@ void graph::remove_edge(node a, node b)
 	{
 		auto ba = std::make_pair(b, a);
 		auto it2 = std::find(m_edges.begin(), m_edges.end(), ba);
-		if(it != m_edges.end())
+		if(it2 != m_edges.end())
 		{
 			m_edges.erase(it2);
 		}
 		else
 		{
+			#ifdef DEBUG
 			std::cout << "Can't remove edge that isn't already in the `m_edges` vector!" << std::endl;
+			#endif // DEBUG
 		}
 	}
 }
 
 void graph::remove_node(node a)
 {
-	if(this->contains_node(a.name()))
+	if(this->contains_node(a))
 	{
 		m_nodes.erase(std::find(m_nodes.begin(), m_nodes.end(), a));
 	}
 	else
 	{
+		#ifdef DEBUG
 		std::cout << "Can't remove node that isn't already in the `m_nodes` vector!" << std::endl;
+		#endif // DEBUG
 	}
 }
 
@@ -111,8 +115,8 @@ bool graph::contains_node(node a)
 
 bool graph::edge_equal(std::pair<node, node> a, std::pair<node, node> b)
 {
-	if((a.first.name() == b.first.name() && a.second.name() == b.second.name()) ||
-	   (a.first.name() == b.second.name() && a.second.name() == b.first.name()))
+	if((!a.first.name().compare(b.first.name())  && !a.second.name().compare(b.second.name())) ||
+	   (!a.first.name().compare(b.second.name()) && !a.second.name().compare(b.first.name())))
 	{
 		return true;
 	}
@@ -143,8 +147,6 @@ void graph::print_graph()
 		}
 	}
 	std::cout << std::endl;
-
-
 }
 
 std::vector<std::pair<node, node>> graph::adjacency_list() const
@@ -155,4 +157,15 @@ std::vector<std::pair<node, node>> graph::adjacency_list() const
 std::vector<node> graph::nodes() const
 {
 	return m_nodes;
+}
+
+node& graph::find_node(std::string node_name)
+{
+	for (auto & n : m_nodes) {
+		if (n.name().compare(node_name) == 0)
+			return n;
+	}
+	
+	node not_found;
+	return not_found;
 }

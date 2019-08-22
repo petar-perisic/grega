@@ -40,7 +40,27 @@ int node::degree(std::vector<std::pair<node, node>> adjacency_list)
     return m_degree;
 }
 
+int node::degree() const
+{
+    return m_degree;
+}
+
 bool node::operator==(const node & other) const
 {
     return this->m_name.compare(other.m_name) == 0;
+}
+
+void node::is_spilled(bool option)
+{
+    m_is_spilled = option;
+}
+
+bool node::is_spilled() const
+{
+    return m_is_spilled;
+}
+
+std::vector<node> & node::adjacent_nodes()
+{
+    return m_adjacent_nodes;
 }

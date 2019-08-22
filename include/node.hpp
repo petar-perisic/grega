@@ -16,13 +16,22 @@ public:
     std::string color() const;
 
     int degree(std::vector<std::pair<node, node>> adjacency_list);
+    int degree() const;
 
     bool operator==(const node & other) const;
+
+    void is_spilled(bool option);
+    bool is_spilled() const;
+
+    std::vector<node> & adjacent_nodes();
 
 private:
     std::string m_name;
     std::string m_color;
     int m_degree = 0;
+    bool m_is_spilled = false;
+
+    std::vector<node> m_adjacent_nodes;
 };
 
 #endif // NODE_HPP_
