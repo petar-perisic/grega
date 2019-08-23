@@ -27,8 +27,14 @@ public:
     void use(std::vector<std::string> && vars);
     std::vector<std::string>& use();
 
-    void is_moved(bool option);
-    bool is_moved() const;
+    void is_move_var(bool option);
+    bool is_move_var() const;
+
+    void is_move_op1(bool option);
+    bool is_move_op1() const;
+
+    void is_move_op2(bool option);
+    bool is_move_op2() const;
 
     void use_list_add_if_unique(std::string operand);
     
@@ -46,7 +52,9 @@ private:
 
     std::vector<std::string> m_use;
     
-    bool m_is_moved = false;
+    bool m_move_var = false;
+    bool m_move_op1 = false;
+    bool m_move_op2 = false;
 };
 
 #endif // INSTRUCTION_HPP_

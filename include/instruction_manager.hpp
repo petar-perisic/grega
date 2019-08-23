@@ -13,9 +13,7 @@ public:
 
     std::vector<instruction> & instructions();
 
-    void load_instructions();
-
-    void liveness_analysis();
+    std::vector<instruction> load_instructions();
 
 private:
     std::ifstream m_file;

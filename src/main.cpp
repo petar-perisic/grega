@@ -53,13 +53,16 @@ int main(int argc, char const *argv[])
 
     instruction_manager manager(file_path);
 
-    manager.load_instructions();
+    grega::instruction_set = manager.load_instructions();
 
     graph g;
     do {
-        manager.liveness_analysis();
-        g = grega::build(manager.instructions());
+        grega::liveness_analysis();
+        
+        g = grega::build();
+        
         grega::simplify_spill(g);
+        
         grega::select(g);
     } while (!grega::spill_nodes.empty());
 

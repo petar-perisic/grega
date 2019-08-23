@@ -20,12 +20,14 @@ std::vector<instruction> & instruction_manager::instructions()
     return m_instructions;
 }
 
-void instruction_manager::load_instructions()
+std::vector<instruction> instruction_manager::load_instructions()
 {
     std::string instruction_string;
     while (std::getline(m_file, instruction_string)) {
         m_instructions.push_back(parse_instruction(instruction_string));
-    }   
+    }
+
+    return m_instructions;
 }
 
 instruction instruction_manager::parse_instruction(std::string & instruction_string)
@@ -46,34 +48,4 @@ instruction instruction_manager::parse_instruction(std::string & instruction_str
     }
 
     return i;
-}
-
-void instruction_manager::liveness_analysis()
-{
-    int size = m_instructions.size();
-    for (auto i = m_instructions.rbegin(); i != m_instructions.rend(); i++) {
-        if (!i->is_moved()) {
-            if (i != m_instructions.rbegin())
-                i->use() = (i - 1)->use();
-        
-            // remove variable from the left hand side
-            auto del = std::find(i->use().begin(), i->use().end(), i->var());
-            if (del != i->use().end())
-                i->use().erase(del);
-
-            // add operators on the right hand side
-            if (i->size() == 3) {
-                i->use_list_add_if_unique(i->operand1());
-                i->use_list_add_if_unique(i->operand2());
-            } else {
-                 i->use_list_add_if_unique(i->operand1());
-            }
-
-            #ifdef DEBUG 
-            std::cout << "Liveness analysis:" << std::endl;
-            std::cout << size-- << ". " << i->to_string() << std::endl;
-            i->print_use_list();
-            #endif // DEBUG
-        }
-    }
 }
