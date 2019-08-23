@@ -182,7 +182,7 @@ void grega::print(graph & G)
                 vars_move.push_back(i.operand2());
 
             if (!vars_move.empty()) {
-                std::cout << "   move: ";
+                std::cout << " load: ";
                 for (auto & var : vars_move)
                     std::cout << var << " ";
                 std::cout << std::endl;
@@ -214,10 +214,10 @@ void grega::print(graph & G)
             std::cout << std::endl;
 
             if (!vars_move.empty()) {
-                std::cout << "   move: ";
+                std::cout << " store: ";
                 for (auto & var : vars_move)
                     std::cout << var << " ";
-                std::cout << "\n" << std::endl;
+                std::cout << std::endl;
             }
         } else { // instruction size = 1
             std::vector<std::string> vars_move;
@@ -227,7 +227,7 @@ void grega::print(graph & G)
                 vars_move.push_back(i.operand1());
 
             if (!vars_move.empty()) {
-                std::cout << "   move: ";
+                std::cout << " load: ";
                 for (auto & var : vars_move)
                     std::cout << var << " ";
                 std::cout << std::endl;
@@ -248,10 +248,10 @@ void grega::print(graph & G)
             std::cout << std::endl;
 
             if (!vars_move.empty()) {
-                std::cout << "   move: ";
+                std::cout << " store: ";
                 for (auto & var : vars_move)
                     std::cout << var << " ";
-                std::cout << "\n" << std::endl;
+                std::cout << std::endl;
             }
         }
     }
