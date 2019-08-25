@@ -1,3 +1,4 @@
+#include "../include/helper.hpp"
 #include "../include/grega.hpp"
 #include "../include/node.hpp"
 
@@ -199,18 +200,24 @@ void grega::print(graph & G)
             // print operand 1
             if (i.is_move_op1())
                 std::cout << i.operand1();
-            else
-                std::cout << "r" << G.find_node(i.operand1()).color();
-
+            else {
+                if (helper::is_variable(i.operand1()))                
+                    std::cout << "r" << G.find_node(i.operand1()).color();
+                else 
+                    std::cout << i.operand1();
+            }
             // print operator
             std::cout << " " << i.instruction_operator() << " ";
             
             // print operand 2
             if (i.is_move_op2())
                 std::cout << i.operand2();
-            else
-                std::cout << "r" << G.find_node(i.operand2()).color();
-
+            else {
+                if (helper::is_variable(i.operand2()))                
+                    std::cout << "r" << G.find_node(i.operand2()).color();
+                else 
+                    std::cout << i.operand2();
+            }
             std::cout << std::endl;
 
             if (!vars_move.empty()) {
@@ -242,9 +249,12 @@ void grega::print(graph & G)
             
             if (i.is_move_op1())
                 std::cout << i.operand1();
-            else
-                std::cout << "r" << G.find_node(i.operand1()).color();
-
+            else {
+                if (helper::is_variable(i.operand1()))                
+                    std::cout << "r" << G.find_node(i.operand1()).color();
+                else 
+                    std::cout << i.operand1();
+            }
             std::cout << std::endl;
 
             if (!vars_move.empty()) {
